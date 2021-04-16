@@ -15,7 +15,7 @@ public class InputManger : MonoBehaviour
         }
     }
 
-    private Controls controls;
+    private PlayerControls controls;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -27,7 +27,7 @@ public class InputManger : MonoBehaviour
             _instance = this;
         }
 
-        controls = new Controls();
+        controls = new PlayerControls();
     }
 
     private void OnEnable()
@@ -44,6 +44,10 @@ public class InputManger : MonoBehaviour
     public Vector2 GetMouseDelta()
     {
         return controls.Player.Look.ReadValue<Vector2>();
+    }
+
+    public bool GetMouseClick(){
+        return controls.Player.Tap.ReadValue<bool>();
     }
 
 }
