@@ -16,7 +16,7 @@ public class objButton : MonoBehaviour
         if (reloadScene) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         if (mix)
         {
-            menzurka.mix();
+            menzurka.MixFluids();
         }
     }
     IEnumerator PushingButt(Transform transform, Vector3 position, float inTime)

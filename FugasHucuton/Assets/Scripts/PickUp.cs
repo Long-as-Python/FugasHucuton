@@ -8,23 +8,22 @@ public class PickUp : MonoBehaviour
     public bool isPicked = false;
     public bool isDest = false;
     public Collider point;
+    public bool FirstTime;
 
 
     private Touch touch;
     public float speedModifier;
 
-    void OnMouseDown()
+    public void OnMouseDownMenzurka()
     {
         GetComponent<Rigidbody>().useGravity = false;
-        this.transform.parent = GameObject.Find("Dest").transform;
         StartCoroutine(PickMe(transform, transform.position + new Vector3(0, height, 0), 1f));
 
         isPicked = true;
     }
 
-    void OnMouseUp()
+    public void OnMouseUpMenzurka()
     {
-        this.transform.parent = null;
         GetComponent<Rigidbody>().useGravity = true;
         transform.rotation = Quaternion.identity;
         isPicked = false;
@@ -74,28 +73,28 @@ public class PickUp : MonoBehaviour
 
     void Update()
     {
-        if (isPicked)
-        {
+        // if (isPicked)
+        // {
 
-            //touch = Input.GetTouch(0);
+        //     //touch = Input.GetTouch(0);
 
-            //if (touch.phase == TouchPhase.Moved)
-            float planeY = 0;
-            Plane plane = new Plane(Vector3.up, Vector3.up * planeY);
-            var mousePos = Input.mousePosition;
-            Ray ray = Camera.main.ScreenPointToRay(mousePos);
-            float distance;
-            if (plane.Raycast(ray, out distance))
-            {
-                Vector3 newPos = ray.GetPoint(distance);
-                newPos = new Vector3(newPos.x, transform.position.y, newPos.z);
-                transform.position = newPos;
-            }
-            // var wantedPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth));
-            // transform.position = wantedPos;
+        //     //if (touch.phase == TouchPhase.Moved)
+        //     float planeY = 0;
+        //     var mousePos = Input.mousePosition;
+        //     Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        //     float distance;
+        //     int layer_mask = LayerMask.GetMask("Default");
+        //     if (Physics.Raycast(ray, out RaycastHit hit, 100, layer_mask))
+        //     {
+        //         Vector3 newPos = hit.point;
+        //         //newPos = new Vector3(newPos.x, transform.position.y, newPos.z);
+        //         transform.position = newPos;
+        //     }
+        //     // var wantedPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth));
+        //     // transform.position = wantedPos;
 
 
-        }
+        // }
 
 
 
