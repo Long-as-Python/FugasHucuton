@@ -13,7 +13,8 @@ public class Mix : MonoBehaviour
     public PickUp pick;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Dest>().isDest && isFull)
+        
+        if (other.gameObject.TryGetComponent<Dest>(out var t) && t.isDest && isFull)
         {
             isFull = false;
             pickUp.RotateMe();
