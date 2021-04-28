@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class SwitchCameraPos : MonoBehaviour
 {
@@ -11,21 +12,37 @@ public Transform cameraTarget3;
 public float speed = 5f;
 private Vector3 dist;
 Vector3 dPos;
-public Button PhysicsButton;
-public Button ChemistryButton;
 public Button BackToMenu;
 
 public int currentTarget;
 private Transform cameraTarget;
+//Raycast For Button
+public float rayLength;
+public LayerMask layerMask;
 
  public void Start()
  { 
     currentTarget = 1;
-    
     BackToMenu.onClick.AddListener(() => SetFistTarget());
-    PhysicsButton.onClick.AddListener(() => SetSecondTarget());
-    ChemistryButton.onClick.AddListener(() => SetThirdTarget());
-    
+ }
+ private void Update()
+ {
+   if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+   {
+     RaycastHit hit;
+     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+     if(Physics.Raycast(ray, out hit, rayLength, layerMask))
+     {
+       if(hit.collider.name == "ChangeToPhysics")
+       {
+        SetThirdTarget();
+       }
+       else if(hit.collider.name == "ChangeToChemistry")
+       {
+         SetSecondTarget();
+       }
+     }
+   }
  }
   public void FixedUpdate()
  {
@@ -44,7 +61,6 @@ private Transform cameraTarget;
  }
   public void SetSecondTarget()
  {
-     Debug.Log("1");
    cameraTarget = cameraTarget2.transform;
    currentTarget = 2;
  }
